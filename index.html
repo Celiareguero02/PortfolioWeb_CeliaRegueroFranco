@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Celia Reguero · Videogame Artist</title>
+  <meta name="description" content="Portfolio de Celia Reguero, Videogame Artist.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="cielo" id="cielo" aria-hidden="true"></div>
+
+  <header class="cabecera">
+    <a class="marca" href="#inicio">Celia Reguero</a>
+    <nav class="menu" aria-label="Principal">
+      <a href="#inicio">Inicio</a>
+      <a href="#proyectos">Proyectos</a>
+      <a href="#habilidades">Habilidades</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Seccion 1: Hero -->
+    <section class="hero" id="inicio">
+      <figure class="marco">
+        <img src="img/ImagenCeliaPortfolio.png" alt="Retrato de Celia Reguero" width="300" height="300">
+      </figure>
+      <h1>Celia Reguero</h1>
+      <p class="rol">Videogame Artist</p>
+      <!-- <p class="frase">Bajo un cielo de píxeles y constelaciones, doy forma a mundos que laten como estrellas.</p> -->
+      <a class="boton brillo" href="#proyectos">Abrir la baraja</a>
+    </section>
+
+    <!-- Seccion 2: Proyectos (carrusel tarot) -->
+    <section class="proyectos" id="proyectos">
+      <div class="fijo">
+        <div class="titulo-seccion">
+          <h2>Proyectos</h2>
+          <p class="pista" id="pista">Sigue desplazándote: el sobre se abre y la baraja se despliega.</p>
+        </div>
+        <div class="escenario" id="escenario"></div>
+      </div>
+    </section>
+
+    <!-- Seccion 3: Habilidades -->
+    <section class="habilidades" id="habilidades">
+      <h2>Habilidades</h2>
+      <div class="rejilla">
+        <article class="columna">
+          <h3>Art and Design</h3>
+          <ul>
+            <li>3D asset creation</li>
+            <li>Concept art and composition</li>
+            <li>Color design and environment</li>
+            <li>Digital illustration</li>
+            <li>Graphic design</li>
+          </ul>
+        </article>
+        <article class="columna">
+          <h3>Game Engines</h3>
+          <ul>
+            <li>Unity management for asset implementation</li>
+            <li>Unreal management for asset and environment implementation</li>
+            <li>Game logic comprehension</li>
+            <li>Collaborative work</li>
+          </ul>
+        </article>
+        <article class="columna">
+          <h3>Soft Skills</h3>
+          <ul>
+            <li>Team management</li>
+            <li>Visual and verbal communication</li>
+            <li>Attention to detail</li>
+            <li>Fast learner</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- Seccion 4: Contacto -->
+    <section class="contacto" id="contacto">
+      <article class="astral">
+        <svg class="rueda" viewBox="0 0 200 200" aria-hidden="true">
+          <circle cx="100" cy="100" r="96" /><circle cx="100" cy="100" r="74" />
+          <path d="M100 4v192M4 100h192M32 32l136 136M168 32L32 168" />
+        </svg>
+        <div class="bloque-perfil">
+          <figure class="foto-contacto">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&q=80" alt="Retrato de Celia Reguero" width="240" height="240">
+          </figure>
+          <p class="nombre">Celia Reguero Franco</p>
+          <p class="rol">Videogame Artist</p>
+        </div>
+        <div class="bloque-datos">
+          <h2>¿Hablamos?</h2>
+          <ul class="datos">
+            <li><span>Residencia</span> Ciudad, País</li>
+            <li><span>Correo</span> <a href="mailto:correo@ejemplo.com">correo@ejemplo.com</a></li>
+            <li>
+              <span>LinkedIn</span>
+              <a class="boton brillo" href="https://www.linkedin.com/in/" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11.25H3zM9.5 9.75h3.8v1.6h.06c.53-1 1.82-2.06 3.75-2.06 4 0 4.74 2.63 4.74 6.05V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4z"/></svg>
+                Ver perfil
+              </a>
+            </li>
+          </ul>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <!-- Modal de galeria -->
+  <div class="modal" id="modal" hidden>
+    <div class="panel" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
+      <button class="cerrar brillo" id="cerrar" type="button" aria-label="Cerrar galería">&times;</button>
+      <h3 id="modal-titulo"></h3>
+      <div class="visor" id="visor"></div>
+      <div class="miniaturas" id="miniaturas"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
