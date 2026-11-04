@@ -17,11 +17,11 @@
     /* Un elemento puede ser una imagen (ruta) o un modelo de Marmoset Viewer:
        { tipo: "mview", titulo: "Nombre", archivo: "models/archivo.mview", miniatura: "img/portada.jpg" }
        (miniatura es opcional: si la dejas vacia se muestra el titulo en el recuadro) */
-    tres_d: [ "",
+    tres_d: [
       { tipo: "mview", titulo: "Cocina", archivo: "models/viewer_cocina.mview", miniatura: "" },
       "", "", ""
     ],
-    personajes: ["img/Reguero_Franco_Celia_BustoFinal_Render_Front.jpg", "", ""]
+    personajes: ["img/Reguero_Franco_Celia_BustoFinal_Render_Front.jpg", "img/maleBustFron.png"]
   };
 
   /* Categorias con secciones desplegables (ahora solo Videogame Projects).
@@ -211,6 +211,7 @@
     pedidoMview++;
     if (visorMview && visorMview.unload) { try { visorMview.unload(); } catch (e) {} }
     visorMview = null;
+    visor.classList.remove("con-imagen");
     visor.innerHTML = "";
   }
 
@@ -250,6 +251,7 @@
     } else if (ruta) {
       var im = document.createElement("img");
       im.src = ruta; im.alt = nombre + " - imagen " + (indice + 1);
+      visor.classList.add("con-imagen");
       visor.appendChild(im);
     } else {
       visor.textContent = "Espacio para imagen " + (indice + 1);
@@ -262,6 +264,7 @@
     if (ruta) {
       var im = document.createElement("img");
       im.src = ruta; im.alt = alt;
+      visor.classList.add("con-imagen");
       visor.appendChild(im);
     } else {
       visor.textContent = etiqueta;

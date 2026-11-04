@@ -211,3 +211,7 @@ h2 { font-size: clamp(2.2rem, 5vw, 3.4rem); color: var(--oro-claro); text-align:
 .mini-3d-txt { display: grid; gap: .1rem; line-height: 1.2; padding: 0 .3rem; }
 .mini-3d-txt b { font-family: var(--serif); font-size: 1.05rem; font-weight: 600; }
 .mini-3d-txt small { font-size: .7rem; color: var(--luna-suave); }
+
+/* El recuadro se adapta al tamano real de la imagen (sin recortes) */
+.visor.con-imagen { aspect-ratio: auto; max-height: none; border: 0; background: none; display: flex; justify-content: center; align-items: center; overflow: visible; }
+.visor.con-imagen img { display: block; width: auto; height: auto; max-width: 100%; max-height: max(160px, calc(58vh - 8.5rem)); object-fit: contain; border: 1px solid rgba(212, 175, 55, .5); border-radius: 8px; background: rgba(6, 11, 28, .7); }
