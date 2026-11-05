@@ -19,7 +19,7 @@
        (miniatura es opcional: si la dejas vacia se muestra el titulo en el recuadro) */
     tres_d: [
       { tipo: "mview", titulo: "Cocina", archivo: "models/viewer_cocina.mview", miniatura: "" },
-      "", "", ""
+      "img/Render_cocina.png", "img/Render_bidones.png", "img/Render_arcade.png"
     ],
     personajes: ["img/Reguero_Franco_Celia_BustoFinal_Render_Front.jpg", "img/maleBustFron.png"]
   };
@@ -30,9 +30,9 @@
      { nombre: "Puzzles", imagenes: ["img/puzzle1.jpg", "img/puzzle2.jpg"] } */
   var SECCIONES = {
     videojuegos: [
-      { nombre: "Puzzles", imagenes: ["", "", ""] },
-      { nombre: "Aventura", imagenes: ["", "", ""] },
-      { nombre: "Plataformas", imagenes: ["", "", ""] }
+      { nombre: "Puzzles", imagenes: ["img/puzzle_arcade.png", "img/puzzle_gramola.png", "img/puzzle_cestas.png", "img/puzzle_glifos.png"] },
+      { nombre: "Recolor fondos", imagenes: ["img/recoloring_fondos1.png", "img/recoloring_fondos2.png", "img/recoloring_fondos3.png", "img/recoloring_fondos4.png"] },
+      { nombre: "HUD y UI", imagenes: ["", "", ""] }
     ]
   };
 
