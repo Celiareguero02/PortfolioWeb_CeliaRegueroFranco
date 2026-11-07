@@ -3,6 +3,8 @@
   "use strict";
 
   var reducirMovimiento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  /* En pantallas tactiles no hay "hover": un toque abre directamente la galeria */
+  function sinHover() { return window.matchMedia("(hover: none)").matches; }
 
   /* ---------- Datos de las categorias ---------- */
   var CATEGORIAS = [
@@ -59,10 +61,11 @@
     '<symbol id="e-b" viewBox="0 0 100 100"><path d="' + CUATRO_PUNTAS + '"/><path transform="rotate(45 50 50)" d="M50 16L54 46L84 50L54 54L50 84L46 54L16 50L46 46Z"/></symbol>' +
     '<symbol id="e-c" viewBox="0 0 100 100"><path d="M50 2L66 50L50 98L34 50Z"/></symbol>' +
     '</defs></svg>';
+  var densidad = window.innerWidth < 700 ? 0.55 : 1;   // menos estrellas en movil
   var n;
-  for (n = 0; n < 55; n++) htmlCielo += estrella(7 + Math.random() * 5, 0.35 + Math.random() * 0.25, false);   // pequenas
-  for (n = 0; n < 22; n++) htmlCielo += estrella(12 + Math.random() * 7, 0.5 + Math.random() * 0.3, false);    // medianas
-  for (n = 0; n < 6; n++) htmlCielo += estrella(22 + Math.random() * 10, 0.75 + Math.random() * 0.2, true);    // brillantes
+  for (n = 0; n < Math.round(55 * densidad); n++) htmlCielo += estrella(7 + Math.random() * 5, 0.35 + Math.random() * 0.25, false);   // pequenas
+  for (n = 0; n < Math.round(22 * densidad); n++) htmlCielo += estrella(12 + Math.random() * 7, 0.5 + Math.random() * 0.3, false);    // medianas
+  for (n = 0; n < Math.round(6 * densidad); n++) htmlCielo += estrella(22 + Math.random() * 10, 0.75 + Math.random() * 0.2, true);    // brillantes
   cielo.innerHTML = htmlCielo;
 
   /* ---------- Destellos en hover ---------- */
@@ -119,9 +122,9 @@
       '</div>';
     escenario.appendChild(b);
     cartas.push(b);
-    b.addEventListener("mouseenter", function () { pausa = true; enfocada = parseInt(this.dataset.indice, 10); lanzarChispas(this); });
+    b.addEventListener("mouseenter", function () { if (sinHover()) return; pausa = true; enfocada = parseInt(this.dataset.indice, 10); lanzarChispas(this); });
     b.addEventListener("mouseleave", function () { pausa = false; enfocada = -1; });
-    b.addEventListener("focus", function () { pausa = true; enfocada = parseInt(this.dataset.indice, 10); });
+    b.addEventListener("focus", function () { if (sinHover()) return; pausa = true; enfocada = parseInt(this.dataset.indice, 10); });
     b.addEventListener("blur", function () { pausa = false; enfocada = -1; });
     b.addEventListener("click", function () { abrirModal(parseInt(this.dataset.categoria, 10), this); });
   }
@@ -357,7 +360,7 @@
     limpiarVisor();
     modal.hidden = true;
     document.body.style.overflow = "";
-    if (origen) origen.focus();
+    if (origen) origen.focus({ preventScroll: true });
   }
   document.getElementById("cerrar").addEventListener("click", cerrarModal);
   modal.addEventListener("click", function (ev) { if (ev.target === modal) cerrarModal(); });

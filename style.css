@@ -12,12 +12,13 @@
   --carta-ancho: clamp(130px, 17vw, 210px);
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+html { scroll-behavior: smooth; scroll-padding-top: 70px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 body {
   font-family: var(--sans); font-weight: 300; line-height: 1.7;
-  color: var(--luna); background: radial-gradient(ellipse at 50% 0%, var(--medianoche), var(--noche) 45%, var(--abismo));
-  background-attachment: fixed; overflow-x: hidden;
+  color: var(--luna); background: var(--abismo); overflow-x: hidden;
 }
+/* degradado fijo (background-attachment: fixed falla en iOS) */
+body::before { content: ""; position: fixed; inset: 0; z-index: -2; pointer-events: none; background: radial-gradient(ellipse at 50% 0%, var(--medianoche), var(--noche) 45%, var(--abismo)); }
 a { color: inherit; }
 ul { list-style: none; }
 h1, h2, h3 { font-family: var(--serif); font-weight: 500; line-height: 1.1; }
@@ -69,11 +70,11 @@ h2 { font-size: clamp(2.2rem, 5vw, 3.4rem); color: var(--oro-claro); text-align:
 
 /* ===== Hero ===== */
 .hero {
-  min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center;
   text-align: center; padding: 6rem 1.5rem 3rem; gap: .6rem;
 }
 .marco {
-  position: relative; width: clamp(180px, 28vw, 260px); aspect-ratio: 1; border-radius: 50%; padding: 10px; margin-bottom: 1.2rem;
+  position: relative; width: clamp(180px, 28vw, 260px); width: clamp(140px, min(28vw, 36svh), 260px); aspect-ratio: 1; border-radius: 50%; padding: 10px; margin-bottom: 1.2rem;
   border: 1px solid var(--oro); box-shadow: 0 0 40px rgba(212, 175, 55, .3), inset 0 0 20px rgba(212, 175, 55, .25);
   animation: aparecer 1.4s ease-out both;
 }
@@ -81,13 +82,13 @@ h2 { font-size: clamp(2.2rem, 5vw, 3.4rem); color: var(--oro-claro); text-align:
 .marco img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block; }
 @keyframes girar { to { transform: rotate(360deg); } }
 @keyframes aparecer { from { opacity: 0; transform: scale(.85); } }
-.hero h1 { font-size: clamp(3rem, 9vw, 6rem); color: var(--oro-claro); text-shadow: 0 0 30px rgba(212, 175, 55, .35); }
+.hero h1 { font-size: clamp(3rem, 9vw, 6rem); font-size: clamp(2.3rem, min(9vw, 14svh), 6rem); color: var(--oro-claro); text-shadow: 0 0 30px rgba(212, 175, 55, .35); }
 .rol { font-family: var(--serif); font-style: italic; font-size: clamp(1.3rem, 3vw, 1.8rem); color: var(--oro); }
 .frase { max-width: 34ch; color: var(--luna-suave); font-size: 1.1rem; margin: .6rem 0 1.4rem; }
 
 /* ===== Proyectos / carrusel ===== */
-.proyectos { height: 190vh; position: relative; }
-.fijo { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; padding-top: 5.5rem; overflow: hidden; }
+.proyectos { height: 190vh; height: 190svh; position: relative; }
+.fijo { position: sticky; top: 0; height: 100vh; height: 100svh; display: flex; flex-direction: column; padding-top: 5.5rem; overflow: hidden; }
 .pista { text-align: center; color: var(--luna-suave); font-style: italic; margin-top: .4rem; transition: opacity .4s; }
 .escenario { position: relative; flex: 1; perspective: 1100px; }
 .carta {
@@ -96,9 +97,11 @@ h2 { font-size: clamp(2.2rem, 5vw, 3.4rem); color: var(--oro-claro); text-align:
   background: none; border: 0; cursor: pointer; color: inherit; font: inherit; will-change: transform;
 }
 .giro { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform .7s cubic-bezier(.2, .8, .2, 1); }
-.carta:hover .giro, .carta:focus-visible .giro { transform: translateY(-22px) rotateY(180deg) scale(1.14); }
+.carta:focus-visible .giro { transform: translateY(-22px) rotateY(180deg) scale(1.14); }
+@media (hover: hover) { .carta:hover .giro { transform: translateY(-22px) rotateY(180deg) scale(1.14); } }
 .cara { transition: box-shadow .4s; }
-.carta:hover .cara, .carta:focus-visible .cara { box-shadow: 0 0 26px rgba(245, 220, 144, .75), 0 10px 30px rgba(0, 0, 0, .55); }
+.carta:focus-visible .cara { box-shadow: 0 0 26px rgba(245, 220, 144, .75), 0 10px 30px rgba(0, 0, 0, .55); }
+@media (hover: hover) { .carta:hover .cara { box-shadow: 0 0 26px rgba(245, 220, 144, .75), 0 10px 30px rgba(0, 0, 0, .55); } }
 .frente .simbolo svg { display: block; width: clamp(2.6rem, 4.2vw, 3.6rem); fill: none; stroke: var(--oro-claro); stroke-width: 3; stroke-linecap: round; }
 .cara {
   position: absolute; inset: 0; border-radius: 12px; backface-visibility: hidden; -webkit-backface-visibility: hidden;
@@ -186,19 +189,52 @@ h2 { font-size: clamp(2.2rem, 5vw, 3.4rem); color: var(--oro-claro); text-align:
 .bloque-datos h2 { text-align: left; font-size: clamp(2.4rem, 5vw, 3.6rem); }
 .datos { margin-top: 1.4rem; display: grid; gap: .9rem; }
 .datos span { display: block; font-size: .85rem; color: var(--oro); }
-.datos a:not(.boton) { text-decoration: none; border-bottom: 1px solid var(--oro); }
+.datos a:not(.boton) { text-decoration: none; border-bottom: 1px solid var(--oro); overflow-wrap: anywhere; }
 
 /* ===== Responsive ===== */
+@media (max-width: 900px) {
+  .rejilla { grid-template-columns: 1fr; max-width: 620px; }
+}
 @media (max-width: 800px) {
-  .rejilla { grid-template-columns: 1fr; }
-  .astral { grid-template-columns: 1fr; gap: 1.2rem; }
+  .astral { grid-template-columns: minmax(0, 1fr); gap: 1.2rem; }
   .foto-contacto { width: min(100%, 160px, 22vh); }
   .bloque-datos { padding: 1.2rem 0 0; border-left: 0; border-top: 1px solid rgba(212, 175, 55, .45); }
   .marca { display: none; }
-  .cabecera { grid-template-columns: 1fr; }
-  .menu { grid-column: 1; justify-self: center; gap: 1rem; }
-  .menu a { font-size: .95rem; }
-  .proyectos { height: 170vh; }
+  .cabecera { grid-template-columns: 1fr; padding: .7rem 1rem; }
+  .menu { grid-column: 1; justify-self: center; gap: clamp(.6rem, 3.5vw, 1.4rem); }
+  .menu a { font-size: clamp(.8rem, 3.6vw, .95rem); }
+  .proyectos { height: 170vh; height: 170svh; }
+}
+@media (max-width: 380px) {
+  .columna { padding: 1.4rem 1.1rem; }
+  .astral { padding: 1.2rem 1rem; }
+  .boton { padding: .65rem 1.3rem; }
+}
+/* Pantallas bajas (movil en horizontal, ventanas pequenas) */
+@media (max-height: 520px) {
+  .cabecera { padding-top: .4rem; padding-bottom: .4rem; }
+  .menu a { padding: .15rem 0; }
+  .hero { padding: 4.5rem 1.5rem 2rem; gap: .3rem; }
+  .marco { margin-bottom: .8rem; }
+  .fijo { padding-top: 3.8rem; }
+  .fijo h2 { font-size: 1.7rem; }
+  .pista { display: none; }
+  .frente p { display: none; }
+  .frente h3 { font-size: 1.1rem; }
+  .frente .simbolo svg { width: 2rem; }
+  .habilidades { padding-top: 4.5rem; }
+  .contacto { padding-top: 4rem; }
+}
+@media (max-height: 520px) and (min-width: 560px) {
+  .astral { grid-template-columns: 1fr 1.15fr; gap: 1.5rem; padding: 1.2rem 1.5rem; }
+  .foto-contacto { width: min(100%, 150px, 34svh); }
+  .bloque-datos { padding: 0 0 0 1.5rem; border-top: 0; border-left: 1px solid rgba(212, 175, 55, .45); }
+  .bloque-datos h2 { font-size: 2rem; }
+  .datos { margin-top: .6rem; gap: .5rem; }
+}
+@media (pointer: coarse) { .cerrar { width: 2.75rem; height: 2.75rem; } }
+@supports (height: 1svh) {
+  :root { --carta-ancho: clamp(105px, min(max(24vw, 130px), 34svh), 210px); }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -215,3 +251,30 @@ h2 { font-size: clamp(2.2rem, 5vw, 3.4rem); color: var(--oro-claro); text-align:
 /* El recuadro se adapta al tamano real de la imagen (sin recortes) */
 .visor.con-imagen { aspect-ratio: auto; max-height: none; border: 0; background: none; display: flex; justify-content: center; align-items: center; overflow: visible; }
 .visor.con-imagen img { display: block; width: auto; height: auto; max-width: 100%; max-height: max(160px, calc(58vh - 8.5rem)); object-fit: contain; border: 1px solid rgba(212, 175, 55, .5); border-radius: 8px; background: rgba(6, 11, 28, .7); }
+
+/* ===== Modal adaptable a movil y tablet ===== */
+.modal, .panel { overscroll-behavior: contain; }
+@media (max-width: 640px), (max-height: 720px) {
+  .modal { padding: .5rem; }
+  .panel { height: 94vh; height: 94dvh; max-height: none; }
+  .visor { flex: 1 1 0; min-height: 0; aspect-ratio: auto; max-height: none; }
+  .visor.con-imagen img { max-height: 100%; }
+  .miniaturas { flex: none; max-height: 30vh; max-height: 30dvh; }
+}
+@media (max-width: 640px) {
+  .panel { padding: 1.5rem 1rem 1rem; }
+  .panel h3 { font-size: 1.6rem; margin-bottom: .8rem; padding: 0 2rem; }
+  .miniaturas { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: .6rem; }
+  .seccion { width: 104px; font-size: 1.05rem; }
+  .proyecto { width: 88px; }
+  .carril { gap: .5rem; }
+}
+@media (max-height: 520px) {
+  .panel { padding: 1rem 1rem .8rem; }
+  .panel h3 { font-size: 1.25rem; margin-bottom: .4rem; }
+  .miniaturas { max-height: 26vh; max-height: 26dvh; margin-top: .5rem; }
+  .cerrar { top: .4rem; right: .4rem; }
+}
+
+/* Las filas de miniaturas nunca se comprimen: si hay muchas, aparece scroll */
+.miniaturas { grid-auto-rows: max-content; align-content: start; }
