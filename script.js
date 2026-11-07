@@ -18,8 +18,8 @@
        { tipo: "mview", titulo: "Nombre", archivo: "models/archivo.mview", miniatura: "img/portada.jpg" }
        (miniatura es opcional: si la dejas vacia se muestra el titulo en el recuadro) */
     tres_d: [
-      { tipo: "mview", titulo: "Cocina", archivo: "models/viewer_cocina.mview", miniatura: "" },
-      "img/Render_cocina.png", "img/Render_bidones.png", "img/Render_arcade.png"
+      
+      "img/Render_cocina.png",{ tipo: "mview", titulo: "Cocina", archivo: "models/viewer_cocina.mview", miniatura: "" },  "img/Render_bidones.png",{ tipo: "mview", titulo: "Bidones", archivo: "models/bidones_viewer.mview", miniatura: "" }, "img/Render_arcade.png",{ tipo: "mview", titulo: "Arcade", archivo: "models/arcade_viewer.mview", miniatura: "" }
     ],
     personajes: ["img/Reguero_Franco_Celia_BustoFinal_Render_Front.jpg", "img/maleBustFron.png"]
   };
@@ -32,7 +32,7 @@
     videojuegos: [
       { nombre: "Puzzles", imagenes: ["img/puzzle_arcade.png", "img/puzzle_gramola.png", "img/puzzle_cestas.png", "img/puzzle_glifos.png"] },
       { nombre: "Recolor fondos", imagenes: ["img/recoloring_fondos1.png", "img/recoloring_fondos2.png", "img/recoloring_fondos3.png", "img/recoloring_fondos4.png"] },
-      { nombre: "HUD y UI", imagenes: ["", "", ""] }
+      { nombre: "HUD y UI", imagenes: ["img/Pantalla_titulo.gif", "img/hud_YNF.png", "img/Backlog_YNF.png"] }
     ]
   };
 
